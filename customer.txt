@@ -1,0 +1,76 @@
+To pull the mongo image from docker hub
+
+C:\Users\DSI>docker pull mongo
+Using default tag: latest
+latest: Pulling from library/mongo
+eaead16dc43b: Pull complete
+8a00eb9f68a0: Pull complete
+f683956749c5: Pull complete
+b33b2f05ea20: Pull complete
+3a342bea915a: Pull complete
+fa956ab1c2f0: Pull complete
+138a8542a624: Pull complete
+acab179a7f07: Pull complete
+f88335710e84: Pull complete
+Digest: sha256:71a63fc2438e45714f6c8a2505968ee0beeb94ec77a88ef12190f7cee9b95f32
+Status: Downloaded newer image for mongo:latest
+docker.io/library/mongo:latest
+========================================================
+Giving container name 
+C:\Users\DSI>docker run -d --name customer-details mongo:latest
+5a94f4ac71db84689a54ab4d86027a8e2d2f7d160cf9fd305c8230a7329bf7bb
+=========================================================
+Executing mongo in bash/shell using docker command
+C:\Users\DSI>docker exec -it customer-details bash
+root@684b01cdc22f:/# mongosh
+Current Mongosh Log ID: 6373a0b0ae48c927c8da3ed3
+==========================================================
+Create Database
+test> use customer-details
+switched to db customer-details
+customer-details> db
+============================================================
+Inserting value
+customer-details> db.customer.insertOne({"customerName":"Priyanka","customerAge":21,"customerAddress":"Mumbai","customerNumber":9912345678,"customerEmail":"p@gmail.com"})
+{
+  acknowledged: true,
+   insertedId: ObjectId("6373a11b7c3c2252a9c73e9b")
+}
+=============================================================
+Inserting many value
+customer-details> db.customer.insertMany([{"customerName":"Sunidhi","customerAge":23,"customerAddress":"Delhi","customerNumber":878799878,"customerEmail":"s@gmail.com"},{"customerName":"Nidhi","customerAge":26,"customerAddress":"Indore","customerNumber":9988799878,"customerEmail":"n@gmail.com"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("6373a3777c3c2252a9c73e9c"),
+    '1': ObjectId("6373a3777c3c2252a9c73e9d")
+  }
+}
+=============================================================
+customer-details> db.customer.find().pretty();
+[
+  {
+    _id: ObjectId("6373a11b7c3c2252a9c73e9b"),
+    customerName: 'Priyanka',
+    customerAge: 21,
+    customerAddress: 'Mumbai',
+    customerNumber: 9912345678,
+    customerEmail: 'p@gmail.com'
+  },
+  {
+    _id: ObjectId("6373a3777c3c2252a9c73e9c"),
+    customerName: 'Sunidhi',
+    customerAge: 23,
+    customerAddress: 'Delhi',
+    customerNumber: 878799878,
+    customerEmail: 's@gmail.com'
+  },
+  {
+    _id: ObjectId("6373a3777c3c2252a9c73e9d"),
+    customerName: 'Nidhi',
+    customerAge: 26,
+    customerAddress: 'Indore',
+    customerNumber: 9988799878,
+    customerEmail: 'n@gmail.com'
+  }
+]
